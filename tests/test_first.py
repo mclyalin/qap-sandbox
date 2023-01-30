@@ -16,18 +16,18 @@ def wait_of_element_located(xpath, driver_init):
 
 def auth_user(email, password, driver_init):
     register_button = wait_of_element_located(
-        xpath="//button[@onclick=\"document.location='/new_user';\"]", driver_init=driver_init
-    )
+        xpath="//button[@onclick=\"document.location='/new_user';\"]",
+        driver_init=driver_init)
     register_button.click()
 
     login_button = wait_of_element_located(
-        xpath="//a[@href='/login']", driver_init=driver_init
-    )
+        xpath="//a[@href='/login']",
+        driver_init=driver_init)
     login_button.click()
 
     login_form = wait_of_element_located(
-        xpath='//form[@action="/login"]', driver_init=driver_init
-    )
+        xpath='//form[@action="/login"]',
+        driver_init=driver_init)
 
     input_email = login_form.find_element(By.ID, 'email')
     input_email.clear()
