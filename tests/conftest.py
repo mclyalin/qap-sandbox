@@ -9,8 +9,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 def driver_init():
     service = ChromeService(ChromeDriverManager().install())
     options = webdriver.ChromeOptions()
-    options.add_experimental_option("excludeSwitches", ["enable-logging"])
+    # options.add_experimental_option("excludeSwitches", ["enable-logging"])
     driver = webdriver.Chrome(options=options, service=service)
-    driver.get('https://petfriends.skillfactory.ru/')
+    driver.get("https://petfriends.skillfactory.ru/")
     yield driver
     driver.close()
