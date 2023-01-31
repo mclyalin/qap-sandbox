@@ -8,12 +8,12 @@ packages = [{include = "qap_sandbox"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-pytest-selenium = "^4.0.0"
-webdriver-manager = "^3.8.5"
 
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^6.0.0"
+pytest-selenium = "^4.0.0"
+webdriver-manager = "^3.8.5"
 
 [build-system]
 requires = ["poetry-core"]

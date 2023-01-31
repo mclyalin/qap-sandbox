@@ -20,10 +20,10 @@ def auth_user(email, password, driver_init):
         driver_init=driver_init)
     register_button.click()
 
-    login_button = wait_of_element_located(
+    login_form_link = wait_of_element_located(
         xpath="//a[@href='/login']",
         driver_init=driver_init)
-    login_button.click()
+    login_form_link.click()
 
     login_form = wait_of_element_located(
         xpath='//form[@action="/login"]',
