@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
-from tests.utils import auth_user, request_auth_form, wait_of_element_located
+
+from tests.utils import auth_user, request_auth_form
 
 
 def test_main_page(driver_init):
@@ -12,9 +13,10 @@ def test_main_page(driver_init):
 
     expected_url = "https://petfriends.skillfactory.ru/all_pets"
     assert driver.current_url == expected_url, "login error"
+    assert driver.title == "PetFriends: My Pets"
 
     header = driver.find_element(By.XPATH, '//div[@id="navbarNav"]/..')
-    nav_burger = header.find_element(By.XPATH, '//*[@data-target="#navbarNav"]')
+    nav_burger = header.find_element(By.CSS_SELECTOR, 'button[data-target="#navbarNav"]')
     nav_burger.click()
 
     brand_link = header.find_element(By.CSS_SELECTOR, 'a[href="/"]')
@@ -27,6 +29,9 @@ def test_main_page(driver_init):
     assert all_pets_link.text == "Все питомцы"
 
     logout_button = header.find_element(
-        By.CSS_SELECTOR, "[onclick=\"document.location='/logout';\"]"
+        By.CSS_SELECTOR, "button[onclick=\"document.location='/logout';\"]"
     )
     assert logout_button.text == "Выйти"
+
+    cards = driver.find_elements(By.CSS_SELECTOR, ".card-deck>.card")
+    assert len(cards) > 0
