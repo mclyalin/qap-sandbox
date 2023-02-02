@@ -42,13 +42,14 @@ def test_user_pets(driver_init):
     user_stats_lines = user_stats_container.text.splitlines()
     pets_count_line = list(filter((lambda e: (e.startswith("Питомцев"))), user_stats_lines))[0]
     pets_count = int(pets_count_line.split(":")[-1].strip())
-    assert pets_count
 
     pets_table = wait_of_element_located(xpath="//div[@id='all_my_pets']/table", driver=driver)
 
     driver.implicitly_wait(1)
 
     rows = pets_table.find_elements(By.XPATH, "//tbody/tr")
+    assert len(rows) == pets_count
+
     pets_list = []
     pets_names = []
     for row in rows:
