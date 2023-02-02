@@ -29,6 +29,7 @@ def test_user_pets(driver_init):
     auth_user(form, email, password)
 
     toggle_navbar_visible(driver)
+
     user_pets_link = wait_of_element_located(xpath='//a[@href="/my_pets"]', driver=driver)
     user_pets_link.click()
 
@@ -56,7 +57,7 @@ def test_user_pets(driver_init):
         breed = breed.text.strip().lower()
         age = int(age.text)
 
-        assert name not in pets_names, f"Повторяющееся имея: {name}"
+        assert name not in pets_names, f"Повторяющееся имя: {name}"
         pets_names.append(name)
 
         pet_data = (name, breed, age)

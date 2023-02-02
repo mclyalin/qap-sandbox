@@ -1,7 +1,5 @@
 from selenium.webdriver.common.by import By
 
-# from selenium.webdriver.support.wait import WebDriverWait
-
 from tests.utils import (
     auth_user,
     request_auth_form,
