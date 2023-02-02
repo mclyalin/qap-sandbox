@@ -3,11 +3,21 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
 
-def wait_of_element_located(xpath, driver):
-    element = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.XPATH, xpath))
-    )
+def wait_of_element_located(xpath, driver, time=5):
+    element = WebDriverWait(driver, time).until(EC.presence_of_element_located((By.XPATH, xpath)))
     return element
+
+
+def is_invisible(element):
+    return EC.invisibility_of_element(element)
+
+
+def is_visible(element):
+    return EC.visibility_of(element)
+
+
+def is_clickable(element):
+    return EC.element_to_be_clickable(element)
 
 
 def request_auth_form(driver):
@@ -17,15 +27,21 @@ def request_auth_form(driver):
     )
     register_button.click()
 
-    auth_form_link = wait_of_element_located(
-        xpath="//a[@href='/login']", driver=driver
-    )
+    auth_form_link = wait_of_element_located(xpath="//a[@href='/login']", driver=driver)
     auth_form_link.click()
 
-    result = wait_of_element_located(
-        xpath='//form[@action="/login"]', driver=driver
-    )
-    return result
+    auth_form = wait_of_element_located(xpath='//form[@action="/login"]', driver=driver)
+    return auth_form
+
+
+def toggle_navbar_visible(driver):
+    navbar = wait_of_element_located(xpath='//*[@id="navbarNav"]', driver=driver)
+    if is_invisible(navbar):
+        nav_burger = wait_of_element_located(
+            xpath='//*[@class="navbar-toggler"][@data-target="#navbarNav"]', driver=driver
+        )
+        nav_burger.click()
+    return navbar
 
 
 def auth_user(auth_form, email, password):
