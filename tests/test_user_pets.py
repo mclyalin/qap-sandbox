@@ -58,6 +58,8 @@ def test_user_pets(driver_init):
         breed = breed.text.strip().lower()
         age = int(age.text)
 
+        assert name and breed and age
+
         assert name not in pets_names, f"Повторяющееся имя: {name}"
         pets_names.append(name)
 
