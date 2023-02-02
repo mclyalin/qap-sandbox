@@ -1,2 +1,2 @@
-<## QAP Sandbox>  
+## QAP Sandbox
 QAP educational repository

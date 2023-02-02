@@ -47,19 +47,24 @@ def test_user_pets(driver_init):
     rows = pets_table.find_elements(By.XPATH, "//tbody/tr")
     assert len(rows) == pets_count
 
-    pets_list = []
-    pets_names = []
+    pets = []
     for row in rows:
         name, breed, age, _ = row.find_elements(By.TAG_NAME, "td")
-        name = name.text.strip().lower()
-        breed = breed.text.strip().lower()
-        age = int(age.text)
+        photo = row.find_element(By.TAG_NAME, "img")
+        pet = {
+          'name': name.text.strip().lower(),
+          'breed': breed.text.strip().lower(),
+          'age': int(age.text),
+          'photo': photo.get_attribute('src')
+        }
 
-        assert name and breed and age
+        assert pet['name'] and pet['breed'] and pet['age'], f"Неполные данные у питомца: {pet}"
+        pets.append(pet)
 
-        assert name not in pets_names, f"Повторяющееся имя: {name}"
-        pets_names.append(name)
+    unique_pets_count = len(set([str(p.values()) for p in pets]))
+    unique_pet_names_count = len(set([p['name'] for p in pets]))
+    pets_with_photo_count = len(set([p['photo'] for p in pets]))
 
-        pet_data = (name, breed, age)
-        assert pet_data not in pets_list, f"Есть повторяющиеся питомцы: {pet_data}"
-        pets_list.append(pet_data)
+    assert unique_pets_count == pets_count, "Есть повторяющиеся питомцы."
+    assert unique_pet_names_count == pets_count, "Есть повторяющиеся имена."
+    assert pets_with_photo_count >= int(pets_count / 2), "У более половины питомцев нет фото."
