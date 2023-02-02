@@ -3,7 +3,6 @@ from selenium.webdriver.common.by import By
 from tests.utils import (
     auth_user,
     request_auth_form,
-    toggle_navbar_visible,
     is_invisible,
     is_visible,
     wait_of_element_located,
@@ -27,8 +26,6 @@ def test_user_pets(driver_init):
     password = "KivAknZcs5yep"
     form = request_auth_form(driver)
     auth_user(form, email, password)
-
-    toggle_navbar_visible(driver)
 
     user_pets_link = wait_of_element_located(xpath='//a[@href="/my_pets"]', driver=driver)
     user_pets_link.click()

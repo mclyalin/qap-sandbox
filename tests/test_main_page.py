@@ -3,9 +3,9 @@ from selenium.webdriver.common.by import By
 from tests.utils import (
     auth_user,
     request_auth_form,
-    toggle_navbar_visible,
     is_visible,
     is_clickable,
+    wait_of_element_located,
 )
 
 
@@ -33,13 +33,11 @@ def test_main_page(driver_init):
     assert is_clickable(logout_button)
     assert logout_button.text == "Выйти"
 
-    navbar = toggle_navbar_visible(driver)
-
-    user_pets_link = navbar.find_element(By.CSS_SELECTOR, '[href="/my_pets"]')
+    user_pets_link = driver.find_element(By.CSS_SELECTOR, '[href="/my_pets"]')
     assert is_clickable(user_pets_link)
     assert user_pets_link.text == "Мои питомцы"
 
-    all_pets_link = navbar.find_element(By.CSS_SELECTOR, '[href="/all_pets"]')
+    all_pets_link = driver.find_element(By.CSS_SELECTOR, '[href="/all_pets"]')
     assert is_clickable(all_pets_link)
     assert all_pets_link.text == "Все питомцы"
 

@@ -9,6 +9,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 def driver_init():
     service = ChromeService(ChromeDriverManager().install())
     options = webdriver.ChromeOptions()
+    options.add_argument('--disable-gpu')
+    options.add_argument("--window-size=1200,1000")
     # options.add_experimental_option("excludeSwitches", ["enable-logging"])
     driver = webdriver.Chrome(options=options, service=service)
     driver.get("https://petfriends.skillfactory.ru/")
